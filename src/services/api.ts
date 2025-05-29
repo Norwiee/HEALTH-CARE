@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 // Create axios instance with base URL
 export const api = axios.create({
@@ -63,6 +64,41 @@ api.interceptors.response.use(
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }
+    }
+
+    // Handle specific error status codes
+    switch (error.response?.status) {
+      case 400:
+        toast.error('Invalid request. Please check your input.');
+        break;
+      case 403:
+        toast.error('You do not have permission to perform this action.');
+        break;
+      case 404:
+        toast.error('The requested resource was not found.');
+        break;
+      case 422:
+        const validationErrors = error.response.data.errors;
+        if (validationErrors) {
+          Object.values(validationErrors).forEach((message: any) => {
+            toast.error(message as string);
+          });
+        } else {
+          toast.error('Validation failed. Please check your input.');
+        }
+        break;
+      case 429:
+        toast.error('Too many requests. Please try again later.');
+        break;
+      case 500:
+        toast.error('An unexpected error occurred. Please try again later.');
+        break;
+      default:
+        if (!navigator.onLine) {
+          toast.error('You are offline. Please check your internet connection.');
+        } else {
+          toast.error('An error occurred. Please try again.');
+        }
     }
     
     // Handle offline status

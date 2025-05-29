@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { SocketProvider } from './contexts/SocketContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Layouts
 import MainLayout from './components/layout/MainLayout';
@@ -20,7 +21,7 @@ import TwoFactorVerifyPage from './pages/auth/TwoFactorVerifyPage';
 
 // Main App Pages
 import DashboardPage from './pages/DashboardPage';
-import ProfilePage from ./pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage';
 import NotificationsPage from './pages/NotificationsPage';
 import SettingsPage from './pages/SettingsPage';
 import MoodTrackerPage from './pages/MoodTrackerPage';
@@ -32,48 +33,50 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <SocketProvider>
-          <NotificationProvider>
-            <Router>
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  className: 'toast',
-                  duration: 4000,
-                }}
-              />
-              <Routes>
-                {/* Auth Routes */}
-                <Route element={<AuthLayout />}>
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
-                  <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                  <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-                  <Route path="/two-factor/setup" element={<TwoFactorSetupPage />} />
-                  <Route path="/two-factor/verify" element={<TwoFactorVerifyPage />} />
-                </Route>
-
-                {/* Protected Routes */}
-                <Route element={<ProtectedRoute />}>
-                  <Route element={<MainLayout />}>
-                    <Route path="/" element={<DashboardPage />} />
-                    <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/notifications" element={<NotificationsPage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/mood-tracker" element={<MoodTrackerPage />} />
-                    <Route path="/activity-log" element={<ActivityLogPage />} />
-                    <Route path="/goals" element={<GoalsPage />} />
+    <ErrorBoundary>
+      <ThemeProvider>
+        <AuthProvider>
+          <SocketProvider>
+            <NotificationProvider>
+              <Router>
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    className: 'toast',
+                    duration: 4000,
+                  }}
+                />
+                <Routes>
+                  {/* Auth Routes */}
+                  <Route element={<AuthLayout />}>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                    <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+                    <Route path="/two-factor/setup" element={<TwoFactorSetupPage />} />
+                    <Route path="/two-factor/verify" element={<TwoFactorVerifyPage />} />
                   </Route>
-                </Route>
-              </Routes>
-            </Router>
-          </NotificationProvider>
-        </SocketProvider>
-      </AuthProvider>
-    </ThemeProvider>
+
+                  {/* Protected Routes */}
+                  <Route element={<ProtectedRoute />}>
+                    <Route element={<MainLayout />}>
+                      <Route path="/" element={<DashboardPage />} />
+                      <Route path="/dashboard" element={<DashboardPage />} />
+                      <Route path="/profile" element={<ProfilePage />} />
+                      <Route path="/notifications" element={<NotificationsPage />} />
+                      <Route path="/settings" element={<SettingsPage />} />
+                      <Route path="/mood-tracker" element={<MoodTrackerPage />} />
+                      <Route path="/activity-log" element={<ActivityLogPage />} />
+                      <Route path="/goals" element={<GoalsPage />} />
+                    </Route>
+                  </Route>
+                </Routes>
+              </Router>
+            </NotificationProvider>
+          </SocketProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
