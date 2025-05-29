@@ -66,7 +66,7 @@ const NotificationsPage: React.FC = () => {
       <div className="space-y-4">
         {notifications.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center">
-            <Bell className="mx-auto text-gray-400 mb-2" size={32} />
+            <Bell className="mx-auto text-gray-400 mb-2\" size={32} />
             <p className="text-gray-600 dark:text-gray-400">No notifications yet</p>
           </div>
         ) : (
