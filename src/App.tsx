@@ -23,7 +23,7 @@ import TwoFactorVerifyPage from './pages/auth/TwoFactorVerifyPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import NotificationsPage from './pages/NotificationsPage';
-import SettingsPage from './pages/SettingsPage';
+i
 import MoodTrackerPage from './pages/MoodTrackerPage';
 import ActivityLogPage from './pages/ActivityLogPage';
 import GoalsPage from './pages/GoalsPage';
